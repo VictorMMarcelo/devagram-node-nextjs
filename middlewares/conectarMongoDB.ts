@@ -12,7 +12,7 @@ async (req:NextApiRequest, res:NextApiResponse<RespostaPadraoMsg>) =>{
 
     //ja que nap esta conectado vamos conectar
     //obter a varial de ambiente preenchida do env
-    const {DB_CONEXAO_STRING} =process.env;
+    const {DB_CONEXAO_STRING} = process.env;
 
     //se a enc estiver vazia abortar o uso do sistema e avisa o programador
 
