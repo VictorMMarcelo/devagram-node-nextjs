@@ -7,6 +7,16 @@ import { UsuarioModel } from '@/models/UsuarioModels';
 const pesquisaEndpoint = async(req : NextApiRequest, res : NextApiResponse<RespostaPadraoMsg | any[]>) =>{
     try {
         if (req.method === 'GET'){
+           if (req?.query?.id){
+            const usuarioEncontrados = await UsuarioModel.findById(req?.query?.id);
+            if(!usuarioEncontrados){
+                return res.status(400).json({erro : 'Usuario nao encontrado'});
+
+            }
+            usuarioEncontrados.senha = null;
+            return res.status(200).json(usuarioEncontrados);
+
+           }else{
             const {filtro} = req.query;
 
             if (!filtro || filtro.length < 2){
@@ -14,13 +24,14 @@ const pesquisaEndpoint = async(req : NextApiRequest, res : NextApiResponse<Respo
             }
 
             const usuarioEncontrados = await UsuarioModel.find({
-                $or: [ {nome : {$regex : filtro, $option : 'i'}},
-                //{ email : {$regex : filtro, $option : 'i'}}
+                $or: [ {nome : {$regex : filtro, $options : 'i'}},
+                //{ email : {$regex : filtro, $options : 'i'}}
             ]
             });
             return res.status(200).json(usuarioEncontrados);
 
 
+           }
         }
     }catch(e){
         console.log(e);
