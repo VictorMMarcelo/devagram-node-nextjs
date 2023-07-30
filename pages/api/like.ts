@@ -1,10 +1,9 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import { conectarMongoDB } from "../../middlewares/conectarMongoDB";
-import { politicaCORS } from "../../middlewares/politicaCORS";
-import { validarTokenJWT } from "../../middlewares/validarTokenJWT";
-import { PublicacaoModel } from "../../models/PublicacaoModel";
-import { UsuarioModel } from "../../models/UsuarioModel";
-import type {RespostaPadraoMsg} from '../../types/RespostaPadraoMsg';
+import type{NextApiRequest, NextApiResponse} from 'next';
+import type {RespostaPadraoMsg} from "@/types/RespostaPadraoMsg";
+import { validarTokenJWT } from '@/middlewares/validarTokenJWT';
+import { UsuarioModel } from '@/models/UsuarioModels';
+import { conectarMongoDB } from '@/middlewares/conectarMongoDB';
+import { PublicacaoModel } from '@/models/PublicacaoModel';
 
 const likeEndpoint 
     = async (req : NextApiRequest, res : NextApiResponse<RespostaPadraoMsg>) => {
@@ -47,4 +46,4 @@ const likeEndpoint
     }
 }
 
-export default politicaCORS(validarTokenJWT(conectarMongoDB(likeEndpoint)));
+export default validarTokenJWT(conectarMongoDB(likeEndpoint));
