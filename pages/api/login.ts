@@ -5,6 +5,7 @@ import type {LoginRespostas} from '../../types/loginRespostas'
 import md5 from "md5";
 import { UsuarioModel } from "../../models/UsuarioModels";
 import jwt from 'jsonwebtoken';
+import { politicaCORS } from "@/middlewares/politicaCORS";
 
 
 const endpointLogin = async(
@@ -38,4 +39,4 @@ const endpointLogin = async(
 }
 
 
-export default conectarMongoDB (endpointLogin);
+export default politicaCORS(conectarMongoDB (endpointLogin));
